@@ -28,7 +28,7 @@ jobs:
         run: |
           set -o pipefail
           xcodebuild \
-            -project DexLoom.xcodeproj \
+            -project DexLoom/DexLoom.xcodeproj \
             -scheme DexLoom \
             -configuration Release \
             -destination 'generic/platform=iOS' \

@@ -621,6 +621,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		AAAABBBBCCCCDDDDEEEE0002 /* APIRedirect */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = AAAABBBBCCCCDDDDEEEE0003 /* XCRemoteSwiftPackageReference "api-redirect" */;
 			productName = APIRedirect;
 		};
 /* End XCSwiftPackageProductDependency section */
