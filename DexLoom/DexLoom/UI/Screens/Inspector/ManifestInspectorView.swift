@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 
 struct ManifestInspectorView: View {
@@ -6,7 +7,7 @@ struct ManifestInspectorView: View {
     @State private var isLoading = false
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             Group {
                 if !bridge.isLoaded {
                     VStack(spacing: 16) {
@@ -53,7 +54,7 @@ struct ManifestInspectorView: View {
                     loadManifest()
                 }
             }
-            .onChange(of: bridge.isLoaded) {
+            .onChangeCompat(of: bridge.isLoaded) {
                 if bridge.isLoaded {
                     loadManifest()
                 } else {

@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 import WebKit
 
@@ -5,7 +6,7 @@ struct RuntimeView: View {
     @ObservedObject var bridge: RuntimeBridge
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             VStack(spacing: 0) {
                 if bridge.isExecuting {
                     // Interpreter is actively running on background thread
@@ -1643,7 +1644,7 @@ private struct EditTextFieldView: View {
         )
         .focused($isFocused)
         .onAppear { text = initialText }
-        .onChange(of: text) { _, newValue in
+        .onChangeCompat(of: text) { _, newValue in
             bridge.updateEditText(viewId: viewId, text: newValue)
         }
     }

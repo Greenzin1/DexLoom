@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 
 struct DEXBrowserView: View {
@@ -16,7 +17,7 @@ struct DEXBrowserView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             Group {
                 if !bridge.isLoaded {
                     VStack(spacing: 16) {
@@ -70,19 +71,18 @@ struct DEXBrowserView: View {
                         .background(Color.dxSurface)
 
                         List(filteredClasses) { cls in
-                            NavigationLink(value: cls) {
+                            NavigationLink {
+                                DEXClassDetailView(bridge: bridge, classInfo: cls)
+                            } label: {
                                 DEXClassRow(classInfo: cls)
                             }
                             .listRowBackground(Color.dxBackground)
                         }
                         .listStyle(.plain)
-                        .scrollContentBackground(.hidden)
+                        .scrollContentBackgroundHidden()
                         .background(Color.dxBackground)
                     }
                     .background(Color.dxBackground)
-                    .navigationDestination(for: DEXClassInfo.self) { cls in
-                        DEXClassDetailView(bridge: bridge, classInfo: cls)
-                    }
                 }
             }
             .navigationTitle("DEX Browser")
@@ -92,7 +92,7 @@ struct DEXBrowserView: View {
                     loadClasses()
                 }
             }
-            .onChange(of: bridge.isLoaded) {
+            .onChangeCompat(of: bridge.isLoaded) {
                 if bridge.isLoaded {
                     loadClasses()
                 } else {

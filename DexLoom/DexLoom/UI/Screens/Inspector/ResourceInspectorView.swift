@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 
 struct ResourceInspectorView: View {
@@ -12,7 +13,7 @@ struct ResourceInspectorView: View {
     private let typeFilters = ["All", "string", "color", "dimen", "integer", "bool", "reference"]
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             Group {
                 if !bridge.isLoaded {
                     emptyState
@@ -26,7 +27,7 @@ struct ResourceInspectorView: View {
                     loadEntries()
                 }
             }
-            .onChange(of: bridge.isLoaded) {
+            .onChangeCompat(of: bridge.isLoaded) {
                 if bridge.isLoaded {
                     loadEntries()
                 } else {
@@ -104,7 +105,7 @@ struct ResourceInspectorView: View {
                     }
                 }
                 .listStyle(.plain)
-                .scrollContentBackground(.hidden)
+                .scrollContentBackgroundHidden()
                 .background(Color.dxBackground)
             }
         }
@@ -121,7 +122,7 @@ struct ResourceInspectorView: View {
                 TextField("Resource ID (e.g., 0x7f0e0001)", text: $searchText)
                     .font(.dxCode)
                     .textFieldStyle(.roundedBorder)
-                    .autocorrectionDisabled()
+                    .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
 
                 Button("Resolve") {

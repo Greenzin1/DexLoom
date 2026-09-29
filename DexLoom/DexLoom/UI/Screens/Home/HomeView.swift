@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -7,7 +8,7 @@ struct HomeView: View {
     @State private var showBundledDemo = false
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     // Header

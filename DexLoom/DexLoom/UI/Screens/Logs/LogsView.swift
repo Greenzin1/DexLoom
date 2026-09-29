@@ -1,3 +1,4 @@
+import APIRedirect
 import SwiftUI
 import UniformTypeIdentifiers
 
@@ -32,7 +33,7 @@ struct LogsView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             VStack(spacing: 0) {
                 // Search bar
                 TextField("Search logs...", text: $searchText)
@@ -144,7 +145,7 @@ struct LogsView: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                     }
-                    .onChange(of: bridge.logs.count) {
+                    .onChangeCompat(of: bridge.logs.count) {
                         if autoScroll, let last = filteredLogs.last {
                             proxy.scrollTo(last.id, anchor: .bottom)
                         }
@@ -154,7 +155,7 @@ struct LogsView: View {
             .background(Color.dxBackground)
             .navigationTitle("Logs (\(filteredLogs.count))")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
                             autoScroll.toggle()
@@ -378,7 +379,7 @@ struct DiagnosticSheetView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
+        Redirect.NavigationStack {
             ScrollView {
                 Text(content)
                     .font(.system(size: 11, design: .monospaced))
@@ -390,10 +391,10 @@ struct DiagnosticSheetView: View {
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button("Done") { dismiss() }
                 }
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         onCopy()
                     } label: {
